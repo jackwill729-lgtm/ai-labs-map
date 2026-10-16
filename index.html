@@ -24,37 +24,37 @@ html,body{margin:0;height:100%;background:#111;font-family:system-ui,sans-serif;
 <script>
 // [name, models, address, lat, lng, url, colour, labelDir]
 const L_ = [
-["OpenAI","GPT, o-series, Sora","1455 3rd St, Mission Bay, San Francisco, CA",37.7701,-122.3890,"https://openai.com","#10a37f","right"],
-["Anthropic","Claude","500 Howard St, San Francisco, CA",37.7881,-122.3964,"https://anthropic.com","#d97757","top"],
-["Thinking Machines Lab","Tinker (fine-tuning platform)","San Francisco, CA (city-level)",37.7790,-122.4120,"https://thinkingmachines.ai","#a78bfa","left"],
-["xAI","Grok","1450 Page Mill Rd, Palo Alto, CA",37.4128,-122.1460,"https://x.ai","#e5e7eb","left"],
-["Safe Superintelligence (SSI)","None released yet","Palo Alto, CA & Tel Aviv (city-level)",37.4419,-122.1430,"https://ssi.inc","#f472b6","top"],
-["Meta Superintelligence Labs","Llama","1 Hacker Way, Menlo Park, CA",37.4848,-122.1484,"https://ai.meta.com","#0866ff","left"],
-["Nvidia","Nemotron","2788 San Tomas Expy, Santa Clara, CA",37.3707,-121.9638,"https://nvidia.com","#76b900","right"],
-["Google DeepMind","Gemini","6 Pancras Square, King's Cross, London, UK",51.5337,-0.1260,"https://deepmind.google","#4285f4","right"],
-["Microsoft AI","MAI models, Copilot","One Microsoft Way, Redmond, WA",47.6423,-122.1369,"https://microsoft.ai","#f25022","right"],
-["Amazon (AGI)","Nova","410 Terry Ave N, Seattle, WA",47.6222,-122.3366,"https://amazon.science","#ff9900","left"],
-["Mistral AI","Mistral, Magistral","15 rue des Halles, Paris, France",48.8603,2.3467,"https://mistral.ai","#fa520f","right"],
-["Cohere","Command, Aya","Toronto, ON, Canada (city-level)",43.6480,-79.3810,"https://cohere.com","#39594d","right"],
-["DeepSeek","DeepSeek-V / R","Hangzhou, Zhejiang, China (city-level)",30.2741,120.1551,"https://deepseek.com","#4d6bfe","left"],
-["Alibaba (Qwen)","Qwen","969 Wenyi West Rd, Yuhang, Hangzhou, China",30.2799,120.0259,"https://qwen.ai","#ff6a00","right"],
-["Moonshot AI","Kimi","Haidian, Beijing, China (city-level)",39.9840,116.3070,"https://moonshot.ai","#9ca3af","left"],
-["Zhipu AI (Z.ai)","GLM","Haidian, Beijing, China (city-level)",39.9930,116.3300,"https://z.ai","#22d3ee","right"],
-["ByteDance Seed","Doubao / Seed","Haidian, Beijing, China (city-level)",39.9580,116.2980,"https://seed.bytedance.com","#fe2c55","bottom"],
-["MiniMax","MiniMax-M","Shanghai, China (city-level)",31.2304,121.4737,"https://minimax.io","#f43f5e","right"]];
+["OpenAI","GPT, o-series, Sora","1455 3rd St, Mission Bay, San Francisco, CA 94158",37.7701,-122.3890,"https://openai.com","#10a37f","right","San Francisco, USA"],
+["Anthropic","Claude","500 Howard St, San Francisco, CA 94105 (new HQ at 300 Howard St planned for 2027)",37.7881,-122.3964,"https://anthropic.com","#d97757","top","San Francisco, USA"],
+["Thinking Machines Lab","Tinker, Inkling","2300 Harrison St, Mission District, San Francisco, CA 94110",37.7605,-122.4125,"https://thinkingmachines.ai","#a78bfa","left","San Francisco, USA"],
+["xAI","Grok","1450 Page Mill Rd, Palo Alto, CA",37.4128,-122.1460,"https://x.ai","#e5e7eb","left","Palo Alto, USA"],
+["Safe Superintelligence (SSI)","None released yet","317 University Ave, Unit 2, Palo Alto, CA 94301 (also Tel Aviv office)",37.4467,-122.1608,"https://ssi.inc","#f472b6","top","Palo Alto, USA"],
+["Meta Superintelligence Labs","Llama","1 Hacker Way, Menlo Park, CA 94025 (Meta HQ)",37.4845,-122.1472,"https://ai.meta.com","#0866ff","left","Menlo Park, USA"],
+["Nvidia","Nemotron","2788 San Tomas Expy, Santa Clara, CA 95051",37.3707,-121.9638,"https://nvidia.com","#76b900","right","Santa Clara, USA"],
+["Google DeepMind","Gemini","Platform 37, 6 King's Boulevard, King's Cross, London N1C 4BU",51.5345,-0.1250,"https://deepmind.google","#4285f4","right","London, UK"],
+["Microsoft AI","MAI models, Copilot","One Microsoft Way, Redmond, WA (Suleyman's team mainly in Mountain View, CA)",47.6423,-122.1369,"https://microsoft.ai","#f25022","right","Redmond, USA"],
+["Amazon (AGI)","Nova","410 Terry Ave N, Seattle, WA 98109 (Amazon HQ)",47.6222,-122.3366,"https://amazon.science","#ff9900","left","Seattle, USA"],
+["Mistral AI","Mistral, Magistral","15 rue des Halles, 75001 Paris (registered office); new HQ: Marcadet-Belvédère, 92-104 rue des Poissonniers, 75018",48.8603,2.3467,"https://mistral.ai","#fa520f","right","Paris, France"],
+["Cohere","Command, Aya","171 John St, Suite 200, Toronto, ON M5T 1X3",43.6505,-79.3910,"https://cohere.com","#39594d","right","Toronto, Canada"],
+["DeepSeek","DeepSeek-V / R","Huijin International Bldg, 169 Huancheng North Rd, Gongshu, Hangzhou (registered office)",30.2850,120.1660,"https://deepseek.com","#4d6bfe","left","Hangzhou, China"],
+["Alibaba (Qwen)","Qwen","969 Wenyi West Rd, Yuhang, Hangzhou (Alibaba Xixi campus)",30.2799,120.0259,"https://qwen.ai","#ff6a00","right","Hangzhou, China"],
+["Moonshot AI","Kimi","13F, Bldg 1, JD Technology Bldg, 76 Zhichun Rd, Haidian, Beijing",39.9765,116.3420,"https://moonshot.ai","#9ca3af","left","Beijing, China"],
+["Zhipu AI (Z.ai)","GLM","10F, Bldg 9, Yard 1, Zhongguancun East Rd, Haidian, Beijing",39.9925,116.3330,"https://z.ai","#22d3ee","right","Beijing, China"],
+["ByteDance Seed","Doubao / Seed","ByteDance Beijing HQ, 48 Zhichun Rd, Haidian, Beijing",39.9770,116.3170,"https://seed.bytedance.com","#fe2c55","bottom","Beijing, China"],
+["MiniMax","MiniMax-M","11F, Bldg B, Xinyan Mansion, 65 Guiqing Rd, Xuhui, Shanghai",31.1720,121.3960,"https://minimax.io","#f43f5e","right","Shanghai, China"]];
 const map=L.map('map',{worldCopyJump:true,zoomControl:false}).setView([35,-30],2);
 L.control.zoom({position:'bottomright'}).addTo(map);
 L.tileLayer('https://server.arcgisonline.com/ArcGIS/rest/services/Canvas/World_Dark_Gray_Base/MapServer/tile/{z}/{y}/{x}',{attribution:'Tiles &copy; Esri',maxZoom:16}).addTo(map);
 L.tileLayer('https://server.arcgisonline.com/ArcGIS/rest/services/Canvas/World_Dark_Gray_Reference/MapServer/tile/{z}/{y}/{x}',{maxZoom:16,pane:'shadowPane'}).addTo(map);
 const cl=L.markerClusterGroup({disableClusteringAtZoom:9,showCoverageOnHover:false,maxClusterRadius:45});
 const list=document.getElementById('list');
-L_.forEach(([n,m,a,la,lo,u,c,d])=>{
+L_.forEach(([n,m,a,la,lo,u,c,d,city])=>{
  const off={right:[10,0],left:[-10,0],top:[0,-10],bottom:[0,10]}[d];
  const mk=L.marker([la,lo],{icon:L.divIcon({className:'',html:`<div class="dot" style="background:${c};color:${c}"></div>`,iconSize:[18,18],iconAnchor:[9,9]})})
   .bindTooltip(n,{permanent:true,direction:d,offset:off,className:'lbl'})
   .bindPopup(`<b>${n}</b><br>Models: ${m}<br>HQ: ${a}<br><a href="${u}" target="_blank" rel="noopener">${u.replace('https://','')}</a>`);
  cl.addLayer(mk);
- const li=document.createElement('li');li.innerHTML=`${n}<small>${a.split(',').slice(-2).join(',')}</small>`;
+ const li=document.createElement('li');li.innerHTML=`${n}<small>${city}</small>`;
  li.onclick=()=>{map.flyTo([la,lo],12);setTimeout(()=>mk.openPopup(),1600);if(innerWidth<600)panel.classList.add('closed')};
  list.appendChild(li);});
 map.addLayer(cl);map.fitBounds(cl.getBounds(),{padding:[30,30]});
