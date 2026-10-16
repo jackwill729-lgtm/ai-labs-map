@@ -1,0 +1,61 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no">
+<title>Frontier AI Labs Map</title>
+<link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css">
+<link rel="stylesheet" href="https://unpkg.com/leaflet.markercluster@1.5.3/dist/MarkerCluster.css">
+<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+<script src="https://unpkg.com/leaflet.markercluster@1.5.3/dist/leaflet.markercluster.js"></script>
+<style>
+html,body{margin:0;height:100%;background:#111;font-family:system-ui,sans-serif;color:#eee}
+#map{position:absolute;inset:0}
+#panel{position:absolute;z-index:1000;top:10px;left:10px;width:230px;max-height:calc(100% - 20px);overflow:auto;background:rgba(20,22,28,.9);border-radius:12px;padding:8px 10px;box-shadow:0 4px 20px #0008}
+#panel h1{font-size:15px;margin:2px 0 6px}#panel.closed ul{display:none}
+#panel ul{list-style:none;margin:0;padding:0}#panel li{padding:6px 4px;border-top:1px solid #333;cursor:pointer;font-size:13px}
+#panel li:hover{background:#2a2f3a}#panel li small{color:#999;display:block}
+.dot{width:14px;height:14px;border-radius:50%;border:2px solid #fff;box-shadow:0 0 8px currentColor}
+.leaflet-tooltip.lbl{background:rgba(15,15,20,.85);color:#fff;border:1px solid #555;font-weight:600;font-size:12px;padding:2px 6px;box-shadow:none}
+.leaflet-tooltip.lbl:before{display:none}
+.leaflet-popup-content-wrapper,.leaflet-popup-tip{background:#1d2028;color:#eee}.leaflet-popup-content a{color:#7cc4ff}
+.marker-cluster div{background:#3b82f6;color:#fff;font-weight:700}.marker-cluster{background:rgba(59,130,246,.35)}
+#toggle{float:right;background:none;border:0;color:#aaa;font-size:16px;cursor:pointer}
+</style></head><body><div id="map"></div>
+<div id="panel"><button id="toggle">☰</button><h1>Frontier AI Labs</h1><ul id="list"></ul></div>
+<script>
+// [name, models, address, lat, lng, url, colour, labelDir]
+const L_ = [
+["OpenAI","GPT, o-series, Sora","1455 3rd St, Mission Bay, San Francisco, CA",37.7701,-122.3890,"https://openai.com","#10a37f","right"],
+["Anthropic","Claude","500 Howard St, San Francisco, CA",37.7881,-122.3964,"https://anthropic.com","#d97757","top"],
+["Thinking Machines Lab","Tinker (fine-tuning platform)","San Francisco, CA (city-level)",37.7790,-122.4120,"https://thinkingmachines.ai","#a78bfa","left"],
+["xAI","Grok","1450 Page Mill Rd, Palo Alto, CA",37.4128,-122.1460,"https://x.ai","#e5e7eb","left"],
+["Safe Superintelligence (SSI)","None released yet","Palo Alto, CA & Tel Aviv (city-level)",37.4419,-122.1430,"https://ssi.inc","#f472b6","top"],
+["Meta Superintelligence Labs","Llama","1 Hacker Way, Menlo Park, CA",37.4848,-122.1484,"https://ai.meta.com","#0866ff","left"],
+["Nvidia","Nemotron","2788 San Tomas Expy, Santa Clara, CA",37.3707,-121.9638,"https://nvidia.com","#76b900","right"],
+["Google DeepMind","Gemini","6 Pancras Square, King's Cross, London, UK",51.5337,-0.1260,"https://deepmind.google","#4285f4","right"],
+["Microsoft AI","MAI models, Copilot","One Microsoft Way, Redmond, WA",47.6423,-122.1369,"https://microsoft.ai","#f25022","right"],
+["Amazon (AGI)","Nova","410 Terry Ave N, Seattle, WA",47.6222,-122.3366,"https://amazon.science","#ff9900","left"],
+["Mistral AI","Mistral, Magistral","15 rue des Halles, Paris, France",48.8603,2.3467,"https://mistral.ai","#fa520f","right"],
+["Cohere","Command, Aya","Toronto, ON, Canada (city-level)",43.6480,-79.3810,"https://cohere.com","#39594d","right"],
+["DeepSeek","DeepSeek-V / R","Hangzhou, Zhejiang, China (city-level)",30.2741,120.1551,"https://deepseek.com","#4d6bfe","left"],
+["Alibaba (Qwen)","Qwen","969 Wenyi West Rd, Yuhang, Hangzhou, China",30.2799,120.0259,"https://qwen.ai","#ff6a00","right"],
+["Moonshot AI","Kimi","Haidian, Beijing, China (city-level)",39.9840,116.3070,"https://moonshot.ai","#9ca3af","left"],
+["Zhipu AI (Z.ai)","GLM","Haidian, Beijing, China (city-level)",39.9930,116.3300,"https://z.ai","#22d3ee","right"],
+["ByteDance Seed","Doubao / Seed","Haidian, Beijing, China (city-level)",39.9580,116.2980,"https://seed.bytedance.com","#fe2c55","bottom"],
+["MiniMax","MiniMax-M","Shanghai, China (city-level)",31.2304,121.4737,"https://minimax.io","#f43f5e","right"]];
+const map=L.map('map',{worldCopyJump:true,zoomControl:false}).setView([35,-30],2);
+L.control.zoom({position:'bottomright'}).addTo(map);
+L.tileLayer('https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png',{attribution:'&copy; OpenStreetMap &copy; CARTO',subdomains:'abcd',maxZoom:19}).addTo(map);
+const cl=L.markerClusterGroup({disableClusteringAtZoom:9,showCoverageOnHover:false,maxClusterRadius:45});
+const list=document.getElementById('list');
+L_.forEach(([n,m,a,la,lo,u,c,d])=>{
+ const off={right:[10,0],left:[-10,0],top:[0,-10],bottom:[0,10]}[d];
+ const mk=L.marker([la,lo],{icon:L.divIcon({className:'',html:`<div class="dot" style="background:${c};color:${c}"></div>`,iconSize:[18,18],iconAnchor:[9,9]})})
+  .bindTooltip(n,{permanent:true,direction:d,offset:off,className:'lbl'})
+  .bindPopup(`<b>${n}</b><br>Models: ${m}<br>HQ: ${a}<br><a href="${u}" target="_blank" rel="noopener">${u.replace('https://','')}</a>`);
+ cl.addLayer(mk);
+ const li=document.createElement('li');li.innerHTML=`${n}<small>${a.split(',').slice(-2).join(',')}</small>`;
+ li.onclick=()=>{map.flyTo([la,lo],13);setTimeout(()=>mk.openPopup(),1600);if(innerWidth<600)panel.classList.add('closed')};
+ list.appendChild(li);});
+map.addLayer(cl);
+const panel=document.getElementById('panel');document.getElementById('toggle').onclick=()=>panel.classList.toggle('closed');
+if(innerWidth<600)panel.classList.add('closed');
+</script></body></html>
