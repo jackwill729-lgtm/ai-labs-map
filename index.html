@@ -3,6 +3,7 @@
 <title>Frontier AI Labs Map</title>
 <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css">
 <link rel="stylesheet" href="https://unpkg.com/leaflet.markercluster@1.5.3/dist/MarkerCluster.css">
+<link rel="stylesheet" href="https://unpkg.com/leaflet.markercluster@1.5.3/dist/MarkerCluster.Default.css">
 <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
 <script src="https://unpkg.com/leaflet.markercluster@1.5.3/dist/leaflet.markercluster.js"></script>
 <style>
@@ -43,7 +44,8 @@ const L_ = [
 ["MiniMax","MiniMax-M","Shanghai, China (city-level)",31.2304,121.4737,"https://minimax.io","#f43f5e","right"]];
 const map=L.map('map',{worldCopyJump:true,zoomControl:false}).setView([35,-30],2);
 L.control.zoom({position:'bottomright'}).addTo(map);
-L.tileLayer('https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png',{attribution:'&copy; OpenStreetMap &copy; CARTO',subdomains:'abcd',maxZoom:19}).addTo(map);
+L.tileLayer('https://server.arcgisonline.com/ArcGIS/rest/services/Canvas/World_Dark_Gray_Base/MapServer/tile/{z}/{y}/{x}',{attribution:'Tiles &copy; Esri',maxZoom:16}).addTo(map);
+L.tileLayer('https://server.arcgisonline.com/ArcGIS/rest/services/Canvas/World_Dark_Gray_Reference/MapServer/tile/{z}/{y}/{x}',{maxZoom:16,pane:'shadowPane'}).addTo(map);
 const cl=L.markerClusterGroup({disableClusteringAtZoom:9,showCoverageOnHover:false,maxClusterRadius:45});
 const list=document.getElementById('list');
 L_.forEach(([n,m,a,la,lo,u,c,d])=>{
@@ -53,9 +55,9 @@ L_.forEach(([n,m,a,la,lo,u,c,d])=>{
   .bindPopup(`<b>${n}</b><br>Models: ${m}<br>HQ: ${a}<br><a href="${u}" target="_blank" rel="noopener">${u.replace('https://','')}</a>`);
  cl.addLayer(mk);
  const li=document.createElement('li');li.innerHTML=`${n}<small>${a.split(',').slice(-2).join(',')}</small>`;
- li.onclick=()=>{map.flyTo([la,lo],13);setTimeout(()=>mk.openPopup(),1600);if(innerWidth<600)panel.classList.add('closed')};
+ li.onclick=()=>{map.flyTo([la,lo],12);setTimeout(()=>mk.openPopup(),1600);if(innerWidth<600)panel.classList.add('closed')};
  list.appendChild(li);});
-map.addLayer(cl);
+map.addLayer(cl);map.fitBounds(cl.getBounds(),{padding:[30,30]});
 const panel=document.getElementById('panel');document.getElementById('toggle').onclick=()=>panel.classList.toggle('closed');
 if(innerWidth<600)panel.classList.add('closed');
 </script></body></html>
