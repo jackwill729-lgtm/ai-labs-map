@@ -8,7 +8,7 @@
 <script src="https://unpkg.com/leaflet.markercluster@1.5.3/dist/leaflet.markercluster.js"></script>
 <style>
 html,body{margin:0;height:100%;background:#111;font-family:system-ui,sans-serif;color:#eee}
-#map{position:absolute;inset:0}
+#map{position:absolute;inset:0;background:#262626}
 #panel{position:absolute;z-index:1000;top:10px;left:10px;width:230px;max-height:calc(100% - 20px);overflow:auto;background:rgba(20,22,28,.9);border-radius:12px;padding:8px 10px;box-shadow:0 4px 20px #0008}
 #panel h1{font-size:15px;margin:2px 0 6px}#panel.closed ul{display:none}
 #panel ul{list-style:none;margin:0;padding:0}#panel li{padding:6px 4px;border-top:1px solid #333;cursor:pointer;font-size:13px}
@@ -28,7 +28,7 @@ const L_ = [
 ["Anthropic","Claude","500 Howard St, San Francisco, CA 94105 (new HQ at 300 Howard St planned for 2027)",37.7881,-122.3964,"https://anthropic.com","#d97757","top","San Francisco, USA"],
 ["Thinking Machines Lab","Tinker, Inkling","2300 Harrison St, Mission District, San Francisco, CA 94110",37.7605,-122.4125,"https://thinkingmachines.ai","#a78bfa","left","San Francisco, USA"],
 ["xAI","Grok","1450 Page Mill Rd, Palo Alto, CA",37.4128,-122.1460,"https://x.ai","#e5e7eb","left","Palo Alto, USA"],
-["Safe Superintelligence (SSI)","None released yet","317 University Ave, Unit 2, Palo Alto, CA 94301 (also Tel Aviv office)",37.4467,-122.1608,"https://ssi.inc","#f472b6","top","Palo Alto, USA"],
+["Safe Superintelligence (SSI)","None released yet","317 University Ave, Unit 2, Palo Alto, CA 94301 (also Tel Aviv office)",37.4467,-122.1608,"https://ssi.inc","#f472b6","right","Palo Alto, USA"],
 ["Meta Superintelligence Labs","Llama","1 Hacker Way, Menlo Park, CA 94025 (Meta HQ)",37.4845,-122.1472,"https://ai.meta.com","#0866ff","left","Menlo Park, USA"],
 ["Nvidia","Nemotron","2788 San Tomas Expy, Santa Clara, CA 95051",37.3707,-121.9638,"https://nvidia.com","#76b900","right","Santa Clara, USA"],
 ["Google DeepMind","Gemini","Platform 37, 6 King's Boulevard, King's Cross, London N1C 4BU",51.5345,-0.1250,"https://deepmind.google","#4285f4","right","London, UK"],
@@ -42,7 +42,7 @@ const L_ = [
 ["Zhipu AI (Z.ai)","GLM","10F, Bldg 9, Yard 1, Zhongguancun East Rd, Haidian, Beijing",39.9925,116.3330,"https://z.ai","#22d3ee","right","Beijing, China"],
 ["ByteDance Seed","Doubao / Seed","ByteDance Beijing HQ, 48 Zhichun Rd, Haidian, Beijing",39.9770,116.3170,"https://seed.bytedance.com","#fe2c55","bottom","Beijing, China"],
 ["MiniMax","MiniMax-M","11F, Bldg B, Xinyan Mansion, 65 Guiqing Rd, Xuhui, Shanghai",31.1720,121.3960,"https://minimax.io","#f43f5e","right","Shanghai, China"]];
-const map=L.map('map',{worldCopyJump:true,zoomControl:false}).setView([35,-30],2);
+const map=L.map('map',{worldCopyJump:true,zoomControl:false,minZoom:2}).setView([35,-30],2);
 L.control.zoom({position:'bottomright'}).addTo(map);
 L.tileLayer('https://server.arcgisonline.com/ArcGIS/rest/services/Canvas/World_Dark_Gray_Base/MapServer/tile/{z}/{y}/{x}',{attribution:'Tiles &copy; Esri',maxZoom:16}).addTo(map);
 L.tileLayer('https://server.arcgisonline.com/ArcGIS/rest/services/Canvas/World_Dark_Gray_Reference/MapServer/tile/{z}/{y}/{x}',{maxZoom:16,pane:'shadowPane'}).addTo(map);
