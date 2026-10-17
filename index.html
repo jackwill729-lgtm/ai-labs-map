@@ -51,12 +51,13 @@ function select(l){
  <p class="meta">🖥 ${l.dc.length} datacenter${l.dc.length==1?'':'s'} shown${l.gap?'. '+l.gap:''}</p>
  <a href="${l.u}" target="_blank" rel="noopener">${l.u.replace('https://','')}</a>`;
  info.style.display='block';document.getElementById('ic').onclick=closeInfo;
- const bot=info.offsetHeight+20, left=innerWidth<600?20:Math.max(260,info.offsetWidth+30);
+ panel.style.maxHeight=`calc(100% - ${info.offsetHeight+50}px)`;
+ const bot=info.offsetHeight+20, left=innerWidth<600?20:260;
  if(pts.length>1)map.flyToBounds(pts,{paddingTopLeft:[innerWidth<600?20:left,60],paddingBottomRight:[40,bot],maxZoom:10});
  else map.flyTo([l.la,l.lo],12);
  if(innerWidth<600)panel.classList.add('closed');
 }
-function closeInfo(){info.style.display='none';dcLayer.clearLayers();}
+function closeInfo(){info.style.display='none';panel.style.maxHeight='';dcLayer.clearLayers();}
 LABS.forEach(l=>{
  const off={right:[10,0],left:[-10,0],top:[0,-10],bottom:[0,10]}[l.d];
  const mk=L.marker([l.la,l.lo],{icon:L.divIcon({className:'',html:`<div class="dot" style="background:${l.c};color:${l.c}"></div>`,iconSize:[18,18],iconAnchor:[9,9]})})
